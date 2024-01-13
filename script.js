@@ -44,6 +44,7 @@ document.getElementById("deleteLogsButton").addEventListener("click",function(){
     }
     polylines = [];
     colorMarkers.removeLegends();
+    document.getElementById("bodyTable").innerHTML = '';
     markers.clear();
 })
 
