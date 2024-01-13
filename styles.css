@@ -29,6 +29,11 @@ body {
     
 }
 
+#miTabla{
+    width: 100%;
+    text-align: center;
+}
+
 #actions{
     display: flex;
     flex-wrap: wrap;

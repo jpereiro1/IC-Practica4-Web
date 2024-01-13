@@ -59,6 +59,7 @@ startRegisterButton.addEventListener("click",function(){
             logs.push(gpsDataJson);
             usersLogsGPS.set(gpsDataJson.user,logs);
         }
+        addRowLog(gpsDataJson);
         addMarker(gpsDataJson);
     });
     startRegisterButton.disabled = true;
@@ -101,16 +102,13 @@ function addMarker(gpsDataJson){
         {radius:1,color:colorMarkers.getUserColor(gpsDataJson.user)}
         ).addTo(map);
 
-    //Formatear el date
-    const timestampInSeconds = gpsDataJson.timestamp;
-    const date = new Date(timestampInSeconds*1000);
-    const formattedDate = date.toDateString();
-    const formattedTime = date.toLocaleTimeString();
-    console.log(gpsDataJson)
+    var time = formatDate(gpsDataJson.timestamp)
+    
+
     circleMarker.bindTooltip(
         `User: ${gpsDataJson.user}<br>
-         Date: ${formattedDate}<br>
-         Time: ${formattedTime}<br>
+         Date: ${time[0]}<br>
+         Time: ${time[1]}<br>
          Location: ${gpsDataJson.latitude} ${gpsDataJson.longitude}<br>
          Altitude: ${gpsDataJson.altitude}
         `
@@ -123,6 +121,32 @@ function addMarker(gpsDataJson){
         markersUser.push(circleMarker);
         markers.set(gpsDataJson.user,markersUser);
     }
+}
+
+function formatDate(timestampInSeconds){
+    //Formatear el date
+    const date = new Date(timestampInSeconds*1000);
+    const formattedDate = date.toDateString();
+    const formattedTime = date.toLocaleTimeString();
+    return [formattedDate,formattedTime];
+}
+
+function addRowLog(gpsDataJson){
+    const row = document.createElement("tr");
+    for(var key in gpsDataJson){
+        const cell = document.createElement("td");
+        var cellText;
+        if(key=="timestamp"){
+            var time = formatDate(gpsDataJson[key]);
+            cellText = document.createTextNode(time[0]+" "+time[1]);
+        }else{
+            cellText = document.createTextNode(gpsDataJson[key]);
+        }
+        
+        cell.appendChild(cellText);
+        row.appendChild(cell);
+    }
+    document.getElementById("bodyTable").prepend(row);
 }
 
 navigator.geolocation.getCurrentPosition(position => {
