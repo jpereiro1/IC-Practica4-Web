@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="module" src="./script.js"></script>
+        <link rel="stylesheet" href="styles.css"/>
+
+        <link rel="stylesheet" href="/node_modules/leaflet/dist/leaflet.css" />
+        <script src="node_modules/leaflet/dist/leaflet.js"></script>
+    </head>
+    <body>
+        <div id="map"></div>
+        <div id="actions">
+            <button id="connectButton">Conectar Serial</button>
+            <button disabled="true" id="startRegisterButton">Comenzar el registro</button>
+            <button disabled="true" id="endRegisterButton">Finalizar el registro</button>
+            <button id="createPolylineButton">Crear polilinea</button>
+            <button id="deleteLogsButton">Borrar registro</button>
+            <div id="legendBox">
+                <h4>Leyenda:</h4>
+                <div id="legend"></div>
+            </div>
+        </div>
+        
+        
+    </body>
+</html>
